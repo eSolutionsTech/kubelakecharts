@@ -1,0 +1,57 @@
+{{- if .Values.ingress.enabled -}}
+{{- $serviceName := .Values.service.name | default (include "spark-history-server.fullname" .) -}}
+{{- $svcPort := .Values.service.port -}}
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  {{- if .Values.ingress.name }}
+  name: {{ .Values.ingress.name }}
+  {{- else }}
+  name: {{ include "spark-history-server.fullname" . }}
+  {{- end }}
+  labels:
+    {{- include "spark-history-server.labels" . | nindent 4 }}
+    {{- with .Values.ingress.labels }}
+      {{- toYaml . | nindent 4 }}
+    {{- end }}
+  {{- if or .Values.commonAnnotations .Values.ingress.annotations}}
+  annotations:
+    {{- with .Values.commonAnnotations }}
+      {{- toYaml . | nindent 4 }}
+    {{- end }}
+    {{- with .Values.ingress.annotations }}
+      {{- toYaml . | nindent 4 }}
+    {{- end }}
+  {{- end }}
+spec:
+  ingressClassName: {{ .Values.ingress.ingressClassName }}
+  {{- if .Values.ingress.tls }}
+  tls:
+    {{- range .Values.ingress.tls }}
+    - hosts:
+        {{- range .hosts }}
+        - {{ . | quote }}
+        {{- end }}
+      secretName: {{ .secretName }}
+    {{- end }}
+  {{- end }}
+  rules:
+    {{- range .Values.ingress.hosts }}
+    - host: {{ .host | quote }}
+      http:
+        paths:
+          {{- range .paths }}
+          - path: {{ .path | default "/" }}
+            pathType: {{ .pathType | default "Prefix" }}
+            backend:
+              service:
+                name: {{ $serviceName }}
+                port:
+                  {{- if and $svcPort (kindIs "string" $svcPort) }}
+                  name: {{ $svcPort }}
+                  {{- else }}
+                  number: {{ $svcPort }}
+                  {{- end }}
+          {{- end }}
+    {{- end }}
+  {{- end }}

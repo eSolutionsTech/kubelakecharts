@@ -1,0 +1,232 @@
+# Default values for spark-history-server.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+# -- Common labels for all deployed resources. Use this to apply a set of labels to all resources that are deployed.
+commonLabels: {}
+
+# -- Common annotations for all deployed resources. Useful for tools that perform actions based on annotations.
+commonAnnotations: {}
+
+# -- Desired number of Spark History Server pods to run.
+replicaCount: 1
+
+# -- Desired name of the Spark History Server deployment.
+deploymentName:
+
+# -- Log4j2 log level. One of `` `debug`, `info`, `warn`, `error`, `fatal`, `trace`
+logLevel: info
+
+# Configuration for the Docker image to use.
+image:
+  # -- Docker image registry.
+  repository: ghcr.io/esolutionsgrup/kubelake-spark
+  # -- Image pull policy.
+  pullPolicy: IfNotPresent
+  # -- Image tag.
+  tag: "3.5.1"
+
+# -- Secrets to be used for pulling images from private Docker registries.
+imagePullSecrets: []
+
+# -- Override for the `spark-history-server.fullname` template, maintains the release name.
+nameOverride: ""
+
+# -- Overrides the release name.
+fullnameOverride: ""
+
+# Service account configuration.
+serviceAccount:
+  # -- Whether to create a service account or not.
+  create: false
+  # -- The name of the service account to use.
+  name: "default"
+  # -- Annotations to add to the service account.
+  annotations: {}
+
+# -- Additional volumes to be mounted.
+extraVolumes: []
+
+# -- Additional volume mounts.
+extraVolumeMounts: []
+
+# -- Security context for the pod.
+podSecurityContext:
+  seccompProfile:
+    type: "RuntimeDefault"
+
+
+# -- Security context for the container.
+containerSecurityContext:
+  runAsUser: 185
+  allowPrivilegeEscalation: false
+  readOnlyRootFilesystem: false
+  capabilities:
+    drop: ["ALL"]
+
+# -- Update strategy for deployments.
+updateStrategy:
+  type: RollingUpdate
+
+# Configuration for the Spark History Server.
+# An exhaustive confuguration properties can be found at: 
+# https://spark.apache.org/docs/latest/monitoring.html#spark-history-server-configuration-options
+config:
+  # -- Name of the class implementing the application history backend.
+  spark.history.provider: "org.apache.spark.deploy.history.FsHistoryProvider"
+
+  # -- For the filesystem history provider, the URL to the directory containing application event logs to load.
+  spark.history.fs.logDirectory: "file:/tmp/spark-events"
+
+  # -- The period at which the filesystem history provider checks for new or updated logs.
+  spark.history.fs.update.interval: "10s"
+
+  # -- The number of applications to retain UI data for in the cache.
+  spark.history.retainedApplications: 50
+
+  # -- The number of applications to display on the history summary page (defaults to Int.MaxValue).
+  spark.history.ui.maxApplications: 2147483647
+
+  # -- The port to which the web interface of the history server binds.
+  spark.history.ui.port: 18080
+
+  # -- Indicates whether the history server should use kerberos to login.
+  spark.history.kerberos.enabled: false
+
+  # -- Kerberos principal name for the History Server when kerberos is enabled.
+  spark.history.kerberos.principal: ""
+
+  # -- Location of the kerberos keytab file for the History Server when kerberos is enabled.
+  spark.history.kerberos.keytab: ""
+
+  # -- Specifies whether the History Server should periodically clean up event logs from storage.
+  spark.history.fs.cleaner.enabled: false
+
+  # -- Specifies how often the filesystem job history cleaner checks for files to delete.
+  spark.history.fs.cleaner.interval: "1d"
+
+  # -- Job history files older than this will be deleted when the cleaner runs.
+  spark.history.fs.cleaner.maxAge: "7d"
+
+  # -- Specifies the maximum number of files in the event log directory (defaults to Int.MaxValue).
+  spark.history.fs.cleaner.maxNum: 2147483647
+
+  # -- How many bytes to parse at the end of log files looking for the end event.
+  spark.history.fs.endEventReparseChunkSize: "1m"
+
+  # -- Enable optimized handling of in-progress logs.
+  spark.history.fs.inProgressOptimization.enabled: true
+
+  # -- Specifies whether the History Server should periodically clean up driver logs.
+  spark.history.fs.driverlog.cleaner.enabled: "spark.history.fs.cleaner.enabled"
+
+  # -- Specifies how often the filesystem driver log cleaner checks for files to delete.
+  spark.history.fs.driverlog.cleaner.interval: "spark.history.fs.cleaner.interval"
+
+  # -- Driver log files older than this will be deleted when the cleaner runs.
+  spark.history.fs.driverlog.cleaner.maxAge: "spark.history.fs.cleaner.maxAge"
+  
+  # Number of threads used by the history server to process event logs. Defaults to 25% of available cores
+  # spark.history.fs.numReplayThreads:
+
+  # -- Maximum disk usage for the local directory storing cached application history information.
+  spark.history.store.maxDiskUsage: "10g"
+
+  # -- Local directory where to cache application history data.
+  spark.history.store.path: ""
+
+  # -- Serializer for writing/reading UI objects to/from disk-based KV Store.
+  spark.history.store.serializer: "JSON"
+
+  # -- Specifies custom spark executor log URL for supporting external log service.
+  spark.history.custom.executor.log.url: ""
+
+  # -- Specifies whether to apply custom spark executor log URL to incomplete applications as well.
+  spark.history.custom.executor.log.url.applyIncompleteApplication: true
+
+  # -- The maximum number of event log files which will be retained as non-compacted (defaults to Int.MaxValue).
+  spark.history.fs.eventLog.rolling.maxFilesToRetain: 2147483647
+
+  # -- Whether to use HybridStore as the store when parsing event logs.
+  spark.history.store.hybridStore.enabled: false
+
+  # -- Maximum memory space for HybridStore.
+  spark.history.store.hybridStore.maxMemoryUsage: "2g"
+
+  # -- Specifies a disk-based store used in hybrid store.
+  spark.history.store.hybridStore.diskBackend: "ROCKSDB"
+
+  # -- Specifies the batch size for updating new eventlog files (defaults to Int.MaxValue).
+  spark.history.fs.update.batchSize: 2147483647
+  
+
+# -- Priority class name for the Spark History Server pod.
+priorityClassName: ""
+
+# -- Additional labels for the Spark History Server pod.
+podLabels: {}
+
+# -- Additional annotations for the Spark History Server pod.
+podAnnotations: {}
+
+# Service configuration for the Spark History Server.
+service:
+  name:
+  type: ClusterIP
+  port: 18080
+  nodePort: ""
+  labels: {}
+  annotations: {}
+  loadBalancerSourceRanges: []
+  httpPortName: http
+
+# Ingress configuration for external access.
+ingress:
+  enabled: false
+  name:
+  # -- Specify the ingress class (Kubernetes >= 1.18).
+  ingressClassName: ""
+  annotations: {}
+  labels: {}
+  hosts:
+    - host: chart-example.local
+      paths:
+        - path: /
+          pathType: Prefix
+  tls: []
+  #  - secretName: chart-example-tls
+  #    hosts:
+  #      - chart-example.local
+
+# Resource requests and limits for the Spark History Server pod.
+resources: {}
+
+# Node selector for pod scheduling.
+nodeSelector: {}
+
+# Tolerations for pod scheduling.
+tolerations: {}
+
+# Affinity for pod scheduling.
+affinity: {}
+
+# Topology spread constraints for even pod distribution.
+topologySpreadConstraints: []
+
+# -- Liveness probe for the Spark History Server container.
+livenessProbe: {}
+
+# -- Readiness probe for the Spark History Server container.
+readinessProbe: {}
+
+# -- Startup probe for the Spark History Server container.
+startupProbe: {}
+
+# -- Extra environment variables to pass to the container.
+extraEnvs: []
+
+# -- Environment variables from ConfigMap or Secret.
+envFrom: []
+
+# Lifecycle hooks for the Spark History Server container.
+lifecycle: {}

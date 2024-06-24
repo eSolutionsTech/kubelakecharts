@@ -1,0 +1,38 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  {{- if .Values.service.name }}
+  name: {{ .Values.service.name }}
+  {{- else }}
+  name: {{ template "spark-history-server.fullname" . }}
+  {{- end }}
+  labels: {{- include "spark-history-server.labels" . | nindent 4 }}
+  {{- if .Values.service.labels }}
+    {{- toYaml .Values.service.labels | nindent 4}}
+  {{- end }}
+  {{- if or .Values.commonAnnotations .Values.service.annotations}}
+  annotations:
+  {{- with .Values.commonAnnotations }}
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+  {{- with .Values.service.annotations }}
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+  {{- end }}
+spec:
+  type: {{ .Values.service.type }}
+  {{- with .Values.service.loadBalancerSourceRanges }}
+  loadBalancerSourceRanges:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+  ports:
+    - port: {{ .Values.service.port }}
+  {{- if .Values.service.nodePort }}
+      nodePort: {{ .Values.service.nodePort }}
+  {{- end }}
+      protocol: TCP
+      name: {{ .Values.service.httpPortName | default "http" }}
+      targetPort: {{ .Values.service.port }}
+  selector:
+    {{- include "spark-history-server.selectorLabels" . | nindent 4 }}

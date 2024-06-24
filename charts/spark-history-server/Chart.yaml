@@ -1,0 +1,14 @@
+apiVersion: v2
+name: spark-history-server
+description: A Helm chart for the Spark-History-Server
+version: 1.0.0
+appVersion: "3.5.1"
+keywords:
+  - spark
+  - spark-history
+  - spark-history-server
+home: https://spark.apache.org
+maintainers:
+  - email: devops@esolutions.ro
+    name: eSolutions
+    url: https://www.esolutions.tech
