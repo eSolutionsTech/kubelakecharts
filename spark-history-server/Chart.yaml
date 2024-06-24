@@ -9,6 +9,6 @@ keywords:
   - spark-history-server
 home: https://spark.apache.org
 maintainers:
-  - email: devops@esolutions.ro
+  - email: kubelake@esolutions.ro
     name: eSolutions
     url: https://www.esolutions.tech
