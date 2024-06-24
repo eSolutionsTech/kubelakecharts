@@ -1,0 +1,22 @@
+apiVersion: v1
+entries:
+  spark-history-server:
+  - apiVersion: v2
+    appVersion: 3.5.1
+    created: "2024-06-24T11:53:19.804471069Z"
+    description: A Helm chart for the Spark-History-Server
+    digest: cbbf8608fe02c9ccdfd1c96be8d001dbc2a992819132e0abe79488edc9eaabfc
+    home: https://spark.apache.org
+    keywords:
+    - spark
+    - spark-history
+    - spark-history-server
+    maintainers:
+    - email: kubelake@esolutions.ro
+      name: eSolutions
+      url: https://www.esolutions.tech
+    name: spark-history-server
+    urls:
+    - https://github.com/eSolutionsGrup/kubelakecharts/releases/download/spark-history-server-1.0.0/spark-history-server-1.0.0.tgz
+    version: 1.0.0
+generated: "2024-06-24T11:53:19.804482229Z"
