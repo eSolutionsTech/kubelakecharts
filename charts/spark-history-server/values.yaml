@@ -20,7 +20,7 @@ logLevel: info
 # Configuration for the Docker image to use.
 image:
   # -- Docker image registry.
-  repository: ghcr.io/esolutionsgrup/kubelake-spark
+  repository: ghcr.io/esolutionstech/kubelake-spark
   # -- Image pull policy.
   pullPolicy: IfNotPresent
   # -- Image tag.

@@ -18,7 +18,7 @@ To deploy the chart with a release name `my-release`:
 1. First, add the kubelake helm charts repository:
 
 ```shell
-$ helm repo add kubelake https://esolutionsgrup.github.io/kubelakecharts
+$ helm repo add kubelake https://esolutionstech.github.io/kubelakecharts
 ```
 
 2. Then, install the chart with the release name `my-release`:
@@ -97,7 +97,7 @@ extraEnvs:
 ##### 3. Deploy the Helm Chart
 
 ```shell
-helm repo add kubelake https://esolutionsgrup.github.io/kubelakecharts
+helm repo add kubelake https://esolutionstech.github.io/kubelakecharts
 helm install --version 1.0.0 \
   --namespace spark \
   --values my-values.yaml \
@@ -147,7 +147,7 @@ helm install --version 1.0.0 \
 | extraVolumes | list | `[]` | Additional volumes to be mounted. |
 | fullnameOverride | string | `""` | Overrides the release name. |
 | image.pullPolicy | string | `"IfNotPresent"` | Image pull policy. |
-| image.repository | string | `"ghcr.io/esolutionsgrup/kubelake-spark"` | Docker image registry. |
+| image.repository | string | `"ghcr.io/esolutionstech/kubelake-spark"` | Docker image registry. |
 | image.tag | string | `"3.5.1"` | Image tag. |
 | imagePullSecrets | list | `[]` | Secrets to be used for pulling images from private Docker registries. |
 | ingress.annotations | object | `{}` |  |
