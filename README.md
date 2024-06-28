@@ -1,4 +1,4 @@
-# Kubelake Charts
+# Kubelake Helm Charts
 
 Provides a collection of helm charts used by the Kubelake Platform. 
 
