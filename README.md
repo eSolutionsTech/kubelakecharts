@@ -1,6 +1,6 @@
 # Kubelake Helm Charts
 
-Provides a collection of helm charts used by the Kubelake Platform. 
+Provides a collection of helm charts used by the Kubelake Data Platform. 
 
 ## TL;DR
 ```
