@@ -1,0 +1,15 @@
+apiVersion: v2
+name: zeppelin
+description: A Zeppelin helm chart for Kubernetes
+version: 1.0.0
+appVersion: 0.11.1
+keywords:
+  - zeppelin
+  - notebook
+  - spark
+  - pyspark
+home: https://zeppelin.apache.org
+maintainers:
+  - name: eSolutions
+    email: kubelake@esolutions.ro
+    url: https://www.esolutions.tech
