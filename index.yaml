@@ -38,4 +38,24 @@ entries:
     urls:
     - https://github.com/eSolutionsGrup/kubelakecharts/releases/download/spark-history-server-1.0.0/spark-history-server-1.0.0.tgz
     version: 1.0.0
-generated: "2024-06-28T16:40:21.333028543Z"
+  zeppelin:
+  - apiVersion: v2
+    appVersion: 0.11.1
+    created: "2024-07-16T10:17:33.677355572Z"
+    description: A Zeppelin helm chart for Kubernetes
+    digest: 9ed18f62e0f79b75dd100d78edb2ceec8ac7379f073a0691ea46760a780fd171
+    home: https://zeppelin.apache.org
+    keywords:
+    - zeppelin
+    - notebook
+    - spark
+    - pyspark
+    maintainers:
+    - email: kubelake@esolutions.ro
+      name: eSolutions
+      url: https://www.esolutions.tech
+    name: zeppelin
+    urls:
+    - https://github.com/eSolutionsTech/kubelakecharts/releases/download/zeppelin-1.0.0/zeppelin-1.0.0.tgz
+    version: 1.0.0
+generated: "2024-07-16T10:17:33.677366753Z"
