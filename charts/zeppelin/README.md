@@ -24,7 +24,6 @@ $ helm delete my-notebooks
 | autoscaling.minReplicas | int | `1` |  |
 | autoscaling.targetCPUUtilizationPercentage | int | `80` |  |
 | env.FLINK_HOME | string | `"/opt/flink"` |  |
-| env.SERVICE_DOMAIN | string | `""` |  |
 | env.SPARK_HOME | string | `"/spark"` |  |
 | env.SPARK_MASTER | string | `"k8s://https://kubernetes.default.svc"` |  |
 | env.ZEPPELIN_HOME | string | `"/opt/zeppelin"` |  |
@@ -32,12 +31,12 @@ $ helm delete my-notebooks
 | env.ZEPPELIN_K8S_SPARK_CONTAINER_IMAGE | string | `"gcr.io/spark-operator/spark:v3.1.1"` |  |
 | env.ZEPPELIN_PORT | int | `8080` |  |
 | env.ZEPPELIN_SERVER_RPC_PORTRANGE | string | `"12320:12320"` |  |
-| extraEnvVarsCM | string | `""` | Extra env configmap name |
-| extraEnvVarsSecret | string | `""` | Extra env secret name |
+| envFrom | list | `[]` | Extra env from ConfigMap or Secret |
+| extraEnv | list | `[]` | Extra env variables to pass to the container |
 | fullnameOverride | string | `""` |  |
 | image.pullPolicy | string | `"IfNotPresent"` |  |
 | image.repository | string | `"apache/zeppelin"` |  |
-| image.tag | string | `"0.10.1"` |  |
+| image.tag | string | `"0.11.1"` |  |
 | imagePullSecrets | list | `[]` |  |
 | ingress.annotations | object | `{}` |  |
 | ingress.enabled | bool | `false` |  |
@@ -56,4 +55,6 @@ $ helm delete my-notebooks
 | serviceAccount.create | bool | `true` |  |
 | serviceAccount.name | string | `""` |  |
 | tolerations | list | `[]` |  |
+| volumeMounts | list | `[]` | Volume mounts |
+| volumes | list | `[]` | Volumes to be mounted |
 ----------------------------------------------
