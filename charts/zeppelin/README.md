@@ -28,7 +28,7 @@ $ helm delete my-notebooks
 | env.SPARK_MASTER | string | `"k8s://https://kubernetes.default.svc"` |  |
 | env.ZEPPELIN_HOME | string | `"/opt/zeppelin"` |  |
 | env.ZEPPELIN_K8S_CONTAINER_IMAGE | string | `"ghcr.io/esolutionstech/kubelake-zeppelin-server:0.11.1"` |  |
-| env.ZEPPELIN_K8S_SPARK_CONTAINER_IMAGE | string | `"gcr.io/spark-operator/spark:v3.1.1"` |  |
+| env.ZEPPELIN_K8S_SPARK_CONTAINER_IMAGE | string | `"ghcr.io/esolutionstech/kubelake-spark:3.5.1"` |  |
 | env.ZEPPELIN_PORT | int | `8080` |  |
 | env.ZEPPELIN_SERVER_RPC_PORTRANGE | string | `"12320:12320"` |  |
 | envFrom | list | `[]` | Extra env from ConfigMap or Secret |
