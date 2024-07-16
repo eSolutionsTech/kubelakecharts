@@ -28,10 +28,17 @@ spec:
       http:
         paths:
           {{- range .paths }}
-          - path: {{ . }}
+          - path: {{ .path | default "/" }}
+            pathType: {{ .pathType | default "Prefix" }}
             backend:
-              serviceName: {{ $fullName }}
-              servicePort: {{ $svcPort }}
+              service:
+                name: {{ $fullName }}
+                port:
+                  {{- if and $svcPort (kindIs "string" $svcPort) }}
+                  name: {{ $svcPort }}
+                  {{- else }}
+                  number: {{ $svcPort }}
+                  {{- end }}
           {{- end }}
     {{- end }}
-  {{- end }}
+{{- end }}    

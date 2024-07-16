@@ -91,7 +91,7 @@ Should point IP address of 'zeppelin-server' service.
 {{- define "zeppelin.serviceDomain" -}}
 {{- if .Values.ingress.enabled }}
 {{- with (first .Values.ingress.hosts) }}
-{{- .host }}
+{{- .host | quote }}
 {{- end }}
 {{- else }}
 {{- default .Values.env.SERVICE_DOMAIN (include "zeppelin.fullname" .) }}
